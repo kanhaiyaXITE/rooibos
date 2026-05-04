@@ -16,6 +16,7 @@ namespace rooibos
         public statusNode = invalid
         public statusCountsNode = invalid
         public progressNode = invalid
+        public scene = invalid
 
         private progressBarWidth = 500.0
 
@@ -28,6 +29,7 @@ namespace rooibos
         ' Called once UI nodes are attached to the scene.
         public function bindNodes(scene as object) as void
             if scene = invalid then return
+            m.scene = scene
             m.statusNode = scene.findNode("statusLabel")
             m.statusCountsNode = scene.findNode("statusCounts")
             m.progressNode = scene.findNode("progressFill")
@@ -86,7 +88,14 @@ namespace rooibos
         end function
 
         private function updateStatus() as void
-            if m.statusNode <> invalid then m.statusNode.text = m.currentSuiteName
+            ' While paused, the Scene's onKeyEvent / TestRunner.waitWhilePaused
+            ' own the statusLabel ("Pausing..." / "Paused..."); don't clobber it
+            ' on every onTestBegin/onTestComplete tick. Counts can still tick
+            ' through so the user sees live progress in the secondary line.
+            paused = m.scene <> invalid and m.scene.paused = true
+            if not paused and m.statusNode <> invalid then
+                m.statusNode.text = m.currentSuiteName
+            end if
             if m.statusCountsNode <> invalid then
                 m.statusCountsNode.text = m.testsStarted.toStr().trim() + "/" + m.totalTests.toStr().trim() + " · ✓ " + m.testsPassed.toStr().trim() + " · ✗ " + m.testsFailed.toStr().trim()
             end if

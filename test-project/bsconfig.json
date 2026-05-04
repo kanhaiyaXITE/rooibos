@@ -6,7 +6,10 @@
         "components/**/*.*"
     ],
     "autoImportComponentScript": true,
-    "createPackage": false,
+    "host": "192.168.1.17",
+    "password": "5410",
+    "createPackage": true,
+    "deploy": true,
     "stagingDir": "dist",
     "retainStagingDir": true,
     "sourceMap": true,

@@ -95,12 +95,14 @@ export class FileFactory {
         let contents = `<?xml version="1.0" encoding="UTF-8" ?>
             <component name="${name}" extends="${baseName}">
                 ${scriptImports.join('\n')}
+                <script type="text/brightscript" uri="pkg:/components/rooibos/RooibosScene.brs" />
                 <interface>
                     <field id="rooibosTestResult" type="assocarray"/>
                     <field id="testText" type="string" alias="statusLabel.text" />
                     <field id="summaryText" type="string" alias="summaryLabel.text" />
                     <field id="progressWidth" type="float" alias="progressFill.width" />
                     <field id="statusColor" type="string" alias="statusBackground.color" />
+                    <field id="paused" type="boolean" />
                     <function name='Rooibos_CreateTestNode' />
                 </interface>
 
@@ -109,7 +111,7 @@ export class FileFactory {
 
                     <Poster uri="pkg:/images/rooibos/your-company-logo.png" width="113" height="62" translation="[1167, 658]" />
 
-                    <LayoutGroup id="contentGroup" translation="[640, 25]" horizAlignment="center" itemSpacings="[20]">
+                    <LayoutGroup id="contentGroup" translation="[640, 25]" horizAlignment="center" itemSpacings="[20,20,20,20,20,20,0]">
                         <Group id="resultImage">
                             <BusySpinner id="resultSpinner" uri="pkg:/images/rooibos/loading.png" spinInterval="2" control="start" />
                             <Poster id="resultPoster" width="75" height="75" scale="[0, 0]" />
@@ -135,14 +137,25 @@ export class FileFactory {
                         <RooibosScrollableResults id="resultsLabel"
                                itemSize="[500, 22]"
                                vertFocusAnimationStyle="floatingFocus"
-                               numRows="17" />
+                               numRows="15" />
 
                         <Rectangle color="#444466" width="500" height="1" />
 
                         <Label id="summaryLabel" text=""
                                width="500" height="30" horizAlign="center" color="#888899"
                                font="font:SmallestSystemFont" />
+
+                        <Label id="hintLabel" text="Play / Pause to pause execution"
+                               width="500" height="20" horizAlign="center" color="#6c63ff"
+                               font="font:SmallestBoldSystemFont" />
                     </LayoutGroup>
+
+                    <Animation id="pauseBreath" duration="3" repeat="true" easeFunction="inOutQuad">
+                        <FloatFieldInterpolator
+                            key="[0.0, 0.5, 1.0]"
+                            keyValue="[1.0, 0.15, 1.0]"
+                            fieldToInterp="statusLabel.opacity" />
+                    </Animation>
                 </children>
             </component>
         `;

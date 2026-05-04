@@ -31,11 +31,11 @@
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "workbench.colorCustomizations": {
-        "statusBar.background": "#FF4658",
+        "statusBar.background": "#ff465906",
         "statusBar.debuggingBackground": "#932b35",
-        "panelTitle.activeBorder": "#ff0000",
-        "activityBar.background": "#304f7d",
-        "titleBar.activeBackground": "#6A9CE6",
+        "panelTitle.activeBorder": "#ff000016",
+        "activityBar.background": "#191a1a04",
+        "titleBar.activeBackground": "#e6e7e90b",
         "titleBar.activeForeground": "#FAFBFE"
     },
     "brightscript.bsdk": "node_modules/brighterscript",

@@ -23,3 +23,5 @@ coverage/
 
 # Output of 'npm pack'
 *.tgz
+
+*.spec.bs

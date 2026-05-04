@@ -16,7 +16,8 @@
         "test:nocover": "mocha",
         "publish-coverage": "nyc report --reporter=text-lcov | coveralls",
         "cli": "ts-node src/cli.ts",
-        "package": "npm run build && npm pack"
+        "package": "npm run build && npm pack",
+        "prepare": "npm run build"
     },
     "dependencies": {
         "brighterscript": "^0.72.0",
